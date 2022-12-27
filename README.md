@@ -8,6 +8,8 @@ One key difference between a typical database and a blockchain is how the data i
 
 A database usually structures its data into tables, whereas a blockchain, as its name implies, structures its data into chunks (blocks) that are strung together. This data structure inherently makes an irreversible timeline of data when implemented in a decentralized nature. When a block is filled, it is set in stone and becomes a part of this timeline. Each block in the chain is given an exact timestamp when it is added to the chain.
 
+## Ganache
+
 
 ## Tools 🛠 
  - Python
