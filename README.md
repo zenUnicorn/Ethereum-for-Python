@@ -16,7 +16,7 @@ Quickly fire up a personal Ethereum blockchain which you can use to run tests, e
  - Python
  - Ethereum
  - Infura
- - Ganache
+ - Moralis
  
  ## Acknowledgements 
  - [Dapp University](https://www.youtube.com/watch?v=SAi5rYFh7yw&list=PLS5SEs8ZftgVn38FOhXvLc0PoX_0hnJO9)
