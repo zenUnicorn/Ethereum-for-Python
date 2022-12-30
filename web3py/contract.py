@@ -5,7 +5,7 @@ web3 = Web3(Web3.HTTPProvider(url))
 print(web3.isConnected())
 
 #looking up information from smart contract
-abi = "" #they are reusable for tokens on the same chain, just chnage the CA, but you can call a function using the wrong abi
+abi = "" #they are reusable for tokens on the same chain, just chnage the CA, but you can call a function using the wrong abi 
 contract_address = web3.toChecksumAddress("")
 
 contract = web3.eth.contract(address=contract_address, abi=abi)
