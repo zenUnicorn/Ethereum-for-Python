@@ -1,3 +1,5 @@
+#Interact with smart contract, Solidity, Ethereum, and python
+
 import json
 from web3 import Web3
 

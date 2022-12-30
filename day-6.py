@@ -21,13 +21,13 @@ print(web3.eth.getTransactionByBlock(hash, 2))
 
 
 #building  Dapp without metamask
-#forst create a new account
+#first create a new account
 account = web3.eth.account.create()
 print(account.address)
 print(web3.toHex(account.privateKey))
-#We cant save the orivate key on the db, so we have to encrypt it
+#We cant save the private key on the db, so we have to encrypt it
 
-keystore = account.encrypt('paswsord')
+keystore = account.encrypt('password')
 print(keystore)
 
 #To decrypt the private key

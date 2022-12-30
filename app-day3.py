@@ -7,7 +7,7 @@ ganache_url = "http://127.0.0.1:7545"
 web3 = Web3(Web3.HTTPProvider(ganache_url))
 print(web3.isConnected())
 
-#We want to send assets from account_1 from account_2 using account_1 private keys - all details gotten from Ganache 
+#We want to send assets from account_1 to account_2 using account_1 private keys - all details gotten from Ganache 
 account_1 = "0x63466D0E2F980d0a851c8bCeD108d53E238eaA04"
 account_2 = "0xF5714F32C77bEc24b2Cff1Af56DBcE4d29d7e841"
 
@@ -33,7 +33,5 @@ tx_hash = web3.eth.sendRawTransaction(sign_tx.rawTransaction)
 
 #get transaction hash
 print(web3.toHex(tx_hash))
-
-
 
 
