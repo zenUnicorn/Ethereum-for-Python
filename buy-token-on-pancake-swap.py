@@ -37,13 +37,37 @@ nonce = web3.eth.get_transaction_count(sender_address)
 #to time the script, to know how many mins was used
 startTime = time.time() #the start time when we began to run the script
 
-#specify the parameters for the transaction
-tx = contract.functions.swapExactETHForToken({
-    'nonce': nonce,
-    'to': ,
-    'gas':,
-    'gasPrice':
-)}
+#specify the parameters for the transaction, not that the parameters must tally with the contracy function
+pancakeSwaptxn = contract.functions.swapExactETHForToken(
+    #first parameter(the amount we want to swap) will be added manually so,lets jump to the next one
+    0, #set the second variable to 0, because it will be automatically calculated when we add the amount we want to purcahse
+    [spend,tokenToBuy], #add the wbnb CA and the CA of the token we want to buy
+    sender_address, #specify the receiver, we spend bnb but we want to receive the token to our address
+    (int(time.time()) + 10000) #specify deadline, incase the transaction gets stuck, we added 10k miliseconds    
+).buildTransaction({
+'from': sender_address,
+'value': web3.toWei(0.001,'ether'), #This is the Token(BNB) amount you want to Swap from
+'gas': 250000,
+'gasPrice': web3.toWei('5','gwei'),
+'nonce': nonce,
+})
+
+#Lets sign the transaction, without the need of signing manually using metamask
+#we referenced the config file and called the private key, we imported config above.
+signed_txn = web3.eth.account.sign_transaction(pancakeSwaptxn, private_key=config.private)
+
+#we need to send the transaction
+tx_token = web3.eth.send_raw_transaction(signed_txn.rawTransaction)
+
+#finally, lets print the transaction hash
+print(web3.toHex(tx_token))
+
+#run the code
+#check bscan with the hash, you will see the details and in the see more, you will see input data and the fucntion called,
+#decode then see the amount we specified and the path(the WBNB address and the CS of token bought)
+#try it again with a different token address(you can grab a token CA from CoinMarketcap or CoinGecko)
+#you can confirm all the transaxction if it went through by using the bscan to check the hash.
+ 
 
 https://www.youtube.com/watch?v=4fRAuWHPCPE
 https://github.com/CodeWithJoe2020/pancakeswapBot/blob/main/cakebot.py
