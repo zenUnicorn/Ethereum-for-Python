@@ -16,6 +16,10 @@ Quickly fire up a personal Ethereum blockchain which you can use to run tests, e
 
 ## Tasks
 - Connecting to the Blockchain
+
+
+## Projects
+- Buy token on Pancake swap (Automatically sign anc confirm transaction)
 - 
 
 ## Tools 🛠 
