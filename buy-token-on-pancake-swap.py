@@ -25,5 +25,28 @@ print(web3.fromWei(balance,'ether'))
 #create a contract instance
 contract = web3.eth.contract(address=pancakeRouterContractAddress, abi=abi)
 
+#Contract Address of Token we want to buy
+tokenToBuy = web3.toChecksumAddress(input("Enter TokenAddress: ")) 
+
+#we have ro specify the WBNB contract address 
+spend = web3.toChecksumAddress("0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c")  #wbnb contract
+
+#sepcify the nonce, number of transactions already done by that address.
+nonce = web3.eth.get_transaction_count(sender_address)
+
+#to time the script, to know how many mins was used
+startTime = time.time() #the start time when we began to run the script
+
+#specify the parameters for the transaction
+tx = contract.functions.swapExactETHForToken({
+    'nonce': nonce,
+    'to': ,
+    'gas':,
+    'gasPrice':
+)}
+
+https://www.youtube.com/watch?v=4fRAuWHPCPE
+https://github.com/CodeWithJoe2020/pancakeswapBot/blob/main/cakebot.py
+
 
  
