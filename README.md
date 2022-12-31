@@ -19,8 +19,8 @@ Quickly fire up a personal Ethereum blockchain which you can use to run tests, e
 
 
 ## Projects
-- Buy token on Pancake swap (Automatically sign anc confirm transaction)
-- 
+- Buy token on PancakeSwap (Automatically sign and confirm transaction)
+- Sell token on PancakeSwap (Automatically sign and confirm transaction)
 
 ## Tools 🛠 
  - Python
