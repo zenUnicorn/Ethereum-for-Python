@@ -16,6 +16,11 @@ Quickly fire up a personal Ethereum blockchain which you can use to run tests, e
 
 ## Tasks
 - Connecting to the Blockchain
+- Using Infura
+- Using Moralis
+- 
+- Interacting with Smart contracts
+- Creating account
 
 
 ## Projects
