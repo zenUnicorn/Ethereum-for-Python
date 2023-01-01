@@ -20,6 +20,7 @@ Quickly fire up a personal Ethereum blockchain which you can use to run tests, e
 - Using Moralis
 - Interacting with Smart contracts (Writing and reading)
 - Creating account
+- Query smart contracts 
 
 
 ## Projects
