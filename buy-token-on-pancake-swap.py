@@ -3,11 +3,14 @@ import json
 import time
 import config
 
+#note that pancakeswap is a copy of uniswap solidity contract
+
 #connet to BSC node
 BSC = "https://bsc-dataseed.binance.org/" #use infura for eth
 web3 = Web3(Web3.HTTPProvider(BSC)) #instance of the web3 class
 
 print(web3.isConnected()) #check if we are connected to the blockchain
+
 
 #We need the Router protocol smart contract address, it starts with 0x10
 #pancakeswap router
@@ -22,11 +25,11 @@ sender_address = web3.toChecksumAddress("0x05B4CCe36a206C8419B84C27Fd22bfAF64Adc
 balance = web3.eth.get_balance(sender_address)
 print(web3.fromWei(balance,'ether'))
 
-#create a contract instance
+#create a contract instance using the pancakerouter contract address and its abi
 contract = web3.eth.contract(address=pancakeRouterContractAddress, abi=abi)
 
 #Contract Address of Token we want to buy
-tokenToBuy = web3.toChecksumAddress(input("Enter TokenAddress: ")) 
+tokenToBuy = web3.toChecksumAddress(input("Enter TokenAddress: ")) #we will but this token: 0x6615a63c260be84974166a5eddff223ce292cf3d yorkie token
 
 #we have ro specify the WBNB contract address 
 spend = web3.toChecksumAddress("0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c")  #wbnb contract
@@ -37,8 +40,9 @@ nonce = web3.eth.get_transaction_count(sender_address)
 #to time the script, to know how many mins was used
 startTime = time.time() #the start time when we began to run the script
 
-#specify the parameters for the transaction, not that the parameters must tally with the contracy function
-pancakeSwaptxn = contract.functions.swapExactETHForToken(
+#specify the parameters for the transaction, not that the parameters must tally with the contract function
+#i.e the swapExactETHForTokens() function must be part of the funtions in the pancakeswap router CA, we can confirm this in the bscan.
+pancakeSwaptxn = contract.functions.swapExactETHForTokens(
     #first parameter(the amount we want to swap) will be added manually so,lets jump to the next one
     0, #set the second variable to 0, because it will be automatically calculated when we add the amount we want to purcahse
     [spend,tokenToBuy], #add the wbnb CA and the CA of the token we want to buy
@@ -67,10 +71,4 @@ print(web3.toHex(tx_token))
 #decode then see the amount we specified and the path(the WBNB address and the CS of token bought)
 #try it again with a different token address(you can grab a token CA from CoinMarketcap or CoinGecko)
 #you can confirm all the transaxction if it went through by using the bscan to check the hash.
- 
-
-https://www.youtube.com/watch?v=4fRAuWHPCPE
-https://github.com/CodeWithJoe2020/pancakeswapBot/blob/main/cakebot.py
-
-
  
