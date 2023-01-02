@@ -1,12 +1,14 @@
 #so the project is going to be like this, we run the script, we inout the CA of the toke we want to sell, it prints out the balance of that
 #token in our wallet, then asks how much of that token do we want to sell, we supply that it then sells it, convert our funds back to BNB
 
+#to know the function that we can use to interact with the contract, we can use the DEX first then using the hashing we can us ethe see more
+#button to get more information such as the name of the function and the expected parameter(s)
+
 from web3 import Web3
 import json
 import time
 import config
 
-#note that pancakeswap is a copy of uniswap solidity contract
 
 #connet to BSC node
 BSC = "https://bsc-dataseed.binance.org/" #use infura for eth
@@ -24,71 +26,68 @@ abi = '[{"inputs":[{"internalType":"address","name":"_factory","type":"address"}
 #next is the sender address, the address that hold the bnb token
 sender_address = web3.toChecksumAddress("0x05B4CCe36a206C8419B84C27Fd22bfAF64Adc268")
 
+#we have ro specify the WBNB contract address 
+spend = web3.toChecksumAddress("0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c")  #wbnb contract
+
 #let's see my wallet balance
-balance = web3.eth.get_balance(sender_address)
-print(web3.fromWei(balance,'ether'))
+#balance = web3.eth.get_balance(sender_address)
+#print(web3.fromWei(balance,'ether'))
+
+#Contract Address of Token we want to sell
+tokenToSell = web3.toChecksumAddress(input("Enter TokenAddress: ")) #we will buy this token: 0x6615a63c260be84974166a5eddff223ce292cf3d yorkie token
 
 #create a contract instance using the pancakerouter contract address and its abi
 contract = web3.eth.contract(address=pancakeRouterContractAddress, abi=abi)
 
-#Contract Address of Token we want to buy
-tokenToBuy = web3.toChecksumAddress(input("Enter TokenAddress: ")) #we will but this token: 0x6615a63c260be84974166a5eddff223ce292cf3d yorkie token
+#lets add the abi for the token we are about to sell, reason is because we want to be able to get some information from it e.g the balance.
+sellAbi = '[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"minTokensBeforeSwap","type":"uint256"}],"name":"MinTokensBeforeSwapUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"tokensSwapped","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"ethReceived","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"tokensIntoLiqudity","type":"uint256"}],"name":"SwapAndLiquify","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"bool","name":"enabled","type":"bool"}],"name":"SwapAndLiquifyEnabledUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"_charityFee","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"_liquidityFee","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"_maxTxAmount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"_taxFee","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"tAmount","type":"uint256"}],"name":"deliver","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"excludeFromFee","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"excludeFromReward","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"includeInFee","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"includeInReward","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"isExcludedFromFee","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"isExcludedFromReward","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tAmount","type":"uint256"},{"internalType":"bool","name":"deductTransferFee","type":"bool"}],"name":"reflectionFromToken","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"charityFee","type":"uint256"}],"name":"setCharityFeePercent","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"liquidityFee","type":"uint256"}],"name":"setLiquidityFeePercent","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"maxTxPercent","type":"uint256"}],"name":"setMaxTxPercent","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bool","name":"_enabled","type":"bool"}],"name":"setSwapAndLiquifyEnabled","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"taxFee","type":"uint256"}],"name":"setTaxFeePercent","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"swapAndLiquifyEnabled","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"rAmount","type":"uint256"}],"name":"tokenFromReflection","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalFees","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"uniswapV2Pair","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"uniswapV2Router","outputs":[{"internalType":"contract IUniswapV2Router02","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"stateMutability":"payable","type":"receive"}]'
 
-#we have ro specify the WBNB contract address 
-spend = web3.toChecksumAddress("0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c")  #wbnb contract
+#create the new contract instance for the new abi using the Contract address and its abi
+sellContract = web3.eth.contract(tokenToSell, abi=sellAbi)
 
-#sepcify the nonce, number of transactions already done by that address.
-nonce = web3.eth.get_transaction_count(sender_address)
+#lets get the balance of the token we want to sell
+tokenBalance = sellContract.functions.balanceOf(sender_address).call()
+symbol = sellContract.functions.symbol().call()
+readable = web3.fromWei(tokenBalance, 'ether')
+print('Balance ' + str(web3.fromWei(readable, 'ether'))+ " " + symbol)
 
-#to time the script, to know how many mins was used
-startTime = time.time() #the start time when we began to run the script
+#The next thing after seeing the amount of that we have, lets add the amount we want to sell
+tokenValue = web3.toWei(input("Enter the amount of " +  symbol + "you want to sell: "), 'ether')
 
-#specify the parameters for the transaction, not that the parameters must tally with the contract function
-#i.e the swapExactETHForTokens() function must be part of the funtions in the pancakeswap router CA, we can confirm this in the bscan.
-pancakeSwaptxn = contract.functions.swapExactETHForTokens(
-    #first parameter(the amount we want to swap) will be added manually so,lets jump to the next one
-    0, #set the second variable to 0, because it will be automatically calculated when we add the amount we want to purcahse
-    [spend,tokenToBuy], #add the wbnb CA and the CA of the token we want to buy
-    sender_address, #specify the receiver, we spend bnb but we want to receive the token to our address
-    (int(time.time()) + 10000) #specify deadline, incase the transaction gets stuck, we added 10k miliseconds    
-).buildTransaction({
-'from': sender_address,
-'value': web3.toWei(0.001,'ether'), #This is the Token(BNB) amount you want to Swap from
-'gas': 250000,
-'gasPrice': web3.toWei('5','gwei'),
-'nonce': nonce,
+#Approve token before selling
+tokenValue2 = web3.fromWei(tokenValue, 'ether')
+start = time.time() #we need to add this incase the transaction hit a block 
+approve = sellContract.functions.approve(pancakeRouterContractAddress, tokenBalance).buildTransaction({
+    'from': sender_address,
+    'gasPrice': web3.toWei('5', 'gwei'),
+    'nonce': web3.eth.get_transaction_count(sender_address),
 })
 
-#Lets sign the transaction, without the need of signing manually using metamask
-#we referenced the config file and called the private key, we imported config above.
-signed_txn = web3.eth.account.sign_transaction(pancakeSwaptxn, private_key=config.private)
-
+#sign the transaction
+signed_txn = web3.eth.account.sign_transaction(approve, private_key=config.private)
+ 
 #we need to send the transaction
 tx_token = web3.eth.send_raw_transaction(signed_txn.rawTransaction)
 
-#finally, lets print the transaction hash
-print(web3.toHex(tx_token))
+#finally, lets print the transaction hash if everything was approved!
+print("Approved: " + web3.toHex(tx_token))
 
-#run the code
-#check bscan with the hash, you will see the details and in the see more, you will see input data and the fucntion called,
-#decode then see the amount we specified and the path(the WBNB address and the CS of token bought)
-#try it again with a different token address(you can grab a token CA from CoinMarketcap or CoinGecko)
-#you can confirm all the transaxction if it went through by using the bscan to check the hash.
- 
+#After it has been approved we we wait 10secs before swapping back to BNB
+time.sleep(10)
+print(f'Swapping {tokenValue2} {symbol} for BNB')
 
+#then swap token for ETH
+pancakeSwapForEth = contract.functions.swapExactTokensForEth(
+    tokenValue, 0,
+    [tokenToSell, spend],
+    sender_address,
+    (int(time.time()) + 100000)
+).buildTransaction({
+    'from': sender_address,
+    'gasPrice': web3.toWei('5', 'ether'),
+    'nonce': web3.eth.get_transaction_count(sender_address),
+})
 
-link1 = 'https://www.youtube.com/watch?v=4fRAuWHPCPE'
-link2 = 'https://github.com/CodeWithJoe2020/pancakeswapBot/blob/main/cakebot.py'
-
-
-
-
-
-
-
-
-link1 = "Tutorial(How to sell token on pancakeswap in python): https://www.youtube.com/watch?v=ehWDvw0jMzo"
-linke2 = "Blockchain & A.I.- send Ethereum with just a smile: https://www.youtube.com/watch?v=krZthWO7_3Q&list=PLAgQsXt06PBghC4Sn_cWDrYiAvjn5tCSX&index=12"
-linke3 = "CodeWithJoe Playlist: https://www.youtube.com/watch?v=bqrdDrZXNTs&list=PLAgQsXt06PBghC4Sn_cWDrYiAvjn5tCSX"
-linke4 = "CodewithJoe Videos: https://www.youtube.com/@CodeWithJoe/videos"
-linke5 = "TokenLaunch SniperBo: https://www.youtube.com/watch?v=jY3iVnQPqsg"
+signed_txn = web3.eth.account.sign_transaction(pancakeSwapForEth, private_key=config.private)
+tx_token = web3.eth.send_raw_transaction(signed_txn.rawTransaction)
+print(f'Sold {symbol} ' + web3.toHex(tx_token))
