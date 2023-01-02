@@ -34,7 +34,7 @@ spend = web3.toChecksumAddress("0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c")  #w
 #print(web3.fromWei(balance,'ether'))
 
 #Contract Address of Token we want to sell
-tokenToSell = web3.toChecksumAddress(input("Enter TokenAddress: ")) #we will buy this token: 0x6615a63c260be84974166a5eddff223ce292cf3d yorkie token
+tokenToSell = web3.toChecksumAddress(input("Enter TokenAddress: ")) #we will sell this token: 0x6615a63c260be84974166a5eddff223ce292cf3d yorkie token
 
 #create a contract instance using the pancakerouter contract address and its abi
 contract = web3.eth.contract(address=pancakeRouterContractAddress, abi=abi)
@@ -77,14 +77,15 @@ time.sleep(10)
 print(f'Swapping {tokenValue2} {symbol} for BNB')
 
 #then swap token for ETH
-pancakeSwapForEth = contract.functions.swapExactTokensForEth(
-    tokenValue, 0,
+pancakeSwapForEth = contract.functions.swapExactTokensForETH(
+    tokenValue, 
+    0,
     [tokenToSell, spend],
     sender_address,
     (int(time.time()) + 100000)
 ).buildTransaction({
     'from': sender_address,
-    'gasPrice': web3.toWei('5', 'ether'),
+    'gasPrice': web3.toWei('10', 'gwei'),
     'nonce': web3.eth.get_transaction_count(sender_address),
 })
 
