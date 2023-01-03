@@ -16,7 +16,7 @@ A smart contract is a self-executing contract with the terms of the agreement be
 ## Ganache 
 Quickly fire up a personal Ethereum blockchain which you can use to run tests, execute commands, and inspect state while controlling how the chain operates. Powered by [Trufflesuite](https://trufflesuite.com/ganache/).
 
-## Tasks
+## Tasks 🎯
 - Connecting to the Blockchain
 - Using Infura
 - Using Moralis
@@ -25,7 +25,7 @@ Quickly fire up a personal Ethereum blockchain which you can use to run tests, e
 - Query smart contracts 
 
 
-## Projects
+## Projects 
 - Buy token on PancakeSwap (Automatically sign and confirm transaction)
 - Sell token on PancakeSwap (Automatically sign and confirm transaction)
 
