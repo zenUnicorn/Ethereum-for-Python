@@ -25,7 +25,7 @@ Quickly fire up a personal Ethereum blockchain which you can use to run tests, e
 - Query smart contracts 
 
 
-## Projects 
+## Projects ⚡️
 - Buy token on PancakeSwap (Automatically sign and confirm transaction)
 - Sell token on PancakeSwap (Automatically sign and confirm transaction)
 
