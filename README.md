@@ -1,5 +1,5 @@
 # Ethereum-for-Python
-Building on the blockchain using python web3.py
+Building on the blockchain using Python web3.py
 ## Python 🐍 
 Python is a high-level, general-purpose programming language. Its design philosophy emphasizes code readability with the use of significant indentation. Python is dynamically-typed and garbage-collected. It supports multiple programming paradigms, including structured, object-oriented and functional programming. 
 
