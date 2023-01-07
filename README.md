@@ -23,7 +23,7 @@ Quickly fire up a personal Ethereum blockchain which you can use to run tests, e
 - Interacting with Smart contracts (Writing and reading)
 - Creating account
 - Query smart contracts 
-
+- 
 
 ## Projects ⚡️
 - Buy token on PancakeSwap (Automatically sign and confirm transaction)
