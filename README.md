@@ -40,4 +40,3 @@ Quickly fire up a personal Ethereum blockchain which you can use to run tests, e
  - [Dapp University](https://www.youtube.com/watch?v=SAi5rYFh7yw&list=PLS5SEs8ZftgVn38FOhXvLc0PoX_0hnJO9)
  - [Documentation](https://web3py.readthedocs.io/en/v5/)
  - [CodeWithJoe](https://www.youtube.com/c/codewithjoe)
- - 
