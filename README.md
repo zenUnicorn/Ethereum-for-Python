@@ -34,7 +34,6 @@ Quickly fire up a personal Ethereum blockchain which you can use to run tests, e
  - Infura
  - Moralis
 
-More update
 
  
  ## Acknowledgements 
