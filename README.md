@@ -26,12 +26,12 @@ Quickly fire up a personal Ethereum blockchain which you can use to run tests, e
 - Query smart contracts 
 
 ## Projects ⚡️
-- Buy token on PancakeSwap (Automatically sign and confirm transaction)
-- Sell token on PancakeSwap (Automatically sign and confirm transaction)
+- Buy token on PancakeSwap (Automatically sign and confirm a transaction)
+- Sell token on PancakeSwap (Automatically sign and confirm a transaction)
 
 ## Tools 🛠 
  - Python.
- - Ethereum
+ - Ethereum.
  - Infura
  - Moralis
 
