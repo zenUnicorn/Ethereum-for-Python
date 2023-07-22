@@ -22,7 +22,7 @@ Quickly fire up a personal Ethereum blockchain which you can use to run tests, e
 - Using Infura.
 - Using Moralis.
 - Interacting with Smart contracts (Writing and reading)
-- Creating account
+- Creating account.
 - Query smart contracts.
 
 ## Projects ⚡️
