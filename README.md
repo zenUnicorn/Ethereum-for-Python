@@ -30,7 +30,7 @@ Quickly fire up a personal Ethereum blockchain which you can use to run tests, e
 - Sell token on PancakeSwap (Automatically sign and confirm transaction)
 
 ## Tools 🛠 
- - Python
+ - Python.
  - Ethereum
  - Infura
  - Moralis
