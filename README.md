@@ -33,7 +33,7 @@ Quickly fire up a personal Ethereum blockchain which you can use to run tests, e
  - Python.
  - Ethereum.
  - Infura.
- - Moralis
+ - Moralis.
 
 
  
